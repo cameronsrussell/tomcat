@@ -42,5 +42,17 @@ execute 'extract_tomcat' do
 	cwd '/tmp'
 end
 
+execute 'chgrp -R chef /opt/tomcat/conf'
 
+directory '/opt/tomcat/conf' do
+	group 'chef'
+	mode '0474'
+end
+
+
+execute 'sudo chmod g+r /opt/tomcat/conf/*'
+
+execute 'sudo chown -R tomcat webapps/ work/ temp/ logs/ conf/ bin/' do
+	cwd '/opt/tomcat'
+end
 
