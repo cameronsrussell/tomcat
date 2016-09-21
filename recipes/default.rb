@@ -27,3 +27,20 @@ user 'tomcat' do
 	group 'tomcat'
 	home '/opt/tomcat'
 end
+
+remote_file '/tmp/apache-tomcat-8.0.37.tar.gz' do
+	source 'http://apache.spinellicreations.com/tomcat/tomcat-8/v8.0.37/bin/apache-tomcat-8.0.37.tar.gz'
+end
+
+directory '/opt/tomcat' do
+	action :create 
+	recursive true
+end
+
+execute 'extract_tomcat' do
+	command 'tar xvf apache-tomcat-8*tar.gz -C /opt/tomcat --strip-components=1'
+	cwd '/tmp'
+end
+
+
+
