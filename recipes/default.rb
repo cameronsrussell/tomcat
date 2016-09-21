@@ -56,3 +56,18 @@ execute 'sudo chown -R tomcat webapps/ work/ temp/ logs/ conf/ bin/' do
 	cwd '/opt/tomcat'
 end
 
+template '/etc/systemd/system/tomcat.service' do
+	source '~/learn-chef/cookbooks/tomcat/templates/tomcat.service.erb'
+end
+
+execute 'systemctl daemon-reload'
+
+service 'tomcat' do
+	action [:start, :enable]
+end
+
+
+
+
+
+
